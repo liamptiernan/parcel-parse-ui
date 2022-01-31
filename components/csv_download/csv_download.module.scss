@@ -1,0 +1,66 @@
+$accordion-border: 1px solid rgba(0,0,0,.125);
+$standard-border: 1px solid hsl(0, 0%, 80%);
+$font-color: hsl(0, 0%, 20%);
+$light-font-color: #6c757d;
+
+.container {
+  margin: auto;
+  margin-top: 40px;
+  width: 600px;
+  padding: 20px;
+
+  border: 1px solid #ddd;
+  border-radius: 5px;
+
+  box-shadow: 0px 0px 10px #ddd;
+
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.header {
+  margin-bottom: 20px;
+  text-align: center;
+
+  border-bottom: $standard-border;
+  
+  p {
+    color: $light-font-color;
+  }
+}
+
+.accordion {
+  min-width: 560px;
+
+  [class*="accordion-button"] {
+    margin: auto;
+    height: 30px;
+    justify-content: center;
+
+    border: 1px solid transparent;
+    color: $font-color;
+    background-color: #fff;
+    box-shadow: none;
+
+    &:hover {
+      background-color: hsl(0, 0%, 95%);
+    }
+
+    &:focus-visible {
+      border: 1px solid #2684ff;
+    }
+  }
+
+  ::after {
+    width: 1em;
+    height: .9em;
+    background-size: 1em;
+    margin: 0 0px 0 5px;
+    color: $light-font-color;
+  }
+
+  [class*="accordion-collapse"] {
+    border-top: $accordion-border;
+  }
+}

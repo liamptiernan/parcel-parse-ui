@@ -1,0 +1,44 @@
+$font-color: hsl(0, 0%, 20%);
+
+.select {
+  width: 250px;
+  
+  [class*="-control"] {
+    cursor: pointer;
+  }
+
+  input {
+    cursor: pointer;
+  }
+
+  [class*="__menu "] {
+    margin-top: 1px;
+    border-radius: 3px;
+  }
+
+  [class*="__menu-list "] {
+    padding: 2px 2px;
+  }
+
+  [class*="__option "] {
+    margin-bottom: 2px;
+    padding: 4px 12px;
+    border-radius: 5px;
+
+    color: $font-color;
+  }
+
+  [class*="__option--is-selected"] {
+    background-color: #deebff;
+  }
+
+  [class*="__option--is-focused"] {
+    background-color: hsl(0, 0, 90%);
+  }
+}
+
+.button {
+  &:focus-visible {
+    box-shadow: 0px 0px 1px 3px #71afff !important; 
+  }
+}
