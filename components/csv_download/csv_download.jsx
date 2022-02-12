@@ -33,11 +33,17 @@ function CsvDownload() {
 
   useEffect(() => {
     if (currentTarget) {
-      const { target, currentCursor } = currentTarget;
-      if (target.id && target.id.includes('value-input-')) {
-        let ele = document.getElementById(target.id)
-        ele.focus()
-        ele.setSelectionRange(currentCursor,currentCursor);
+      if (currentTarget.newFilter) {
+        const newEle = document.getElementById(`value-input-${filters.length - 1}`);
+        console.log(newEle);
+        newEle.focus();
+      } else {
+        const { target, currentCursor } = currentTarget;
+        if (target.id && target.id.includes('value-input-')) {
+          let ele = document.getElementById(target.id)
+          ele.focus();
+          ele.setSelectionRange(currentCursor,currentCursor);
+        }
       }
     }
   })
@@ -64,6 +70,7 @@ function CsvDownload() {
     }
 
     setFilters(filters.concat(newFilter));
+    setCurrentTarget({ newFilter: true });
   }
 
   const updateFilter = (target, field, i) => {
