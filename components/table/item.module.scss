@@ -1,0 +1,57 @@
+.list {
+  margin: auto;
+  width: 700px;
+  padding: 20px;
+
+  border: 1px solid #ddd;
+  border-radius: 5px;
+
+  box-shadow: 0px 0px 10px #ddd;
+}
+
+.listBody {
+  display: grid;
+  padding: 0px;
+
+  border: 1px solid #ddd;
+  border-radius: 5px;
+
+  font-size: 15px;
+}
+
+.listItem {
+  display: grid;
+  grid-template-columns: 175px repeat(4, 120px);
+
+  padding: 10px 15px;
+  margin-right: 1px;
+  border-bottom: 1px solid #ddd;
+}
+
+.listTotal {
+  display: grid;
+  grid-template-columns: 175px repeat(4, 120px);
+
+  padding: 10px 15px;
+  margin-right: 1px;
+  border-bottom: 1px solid #ddd;
+  font-weight: bold;
+}
+
+.listItem:last-child {
+  border-bottom: none;
+}
+
+.subItem {
+  text-align: center;
+}
+
+.subItemTeam {
+  color: black;
+  text-decoration: none;
+}
+
+.subItemTeam:hover {
+  color: #555;
+  text-decoration: underline;
+}

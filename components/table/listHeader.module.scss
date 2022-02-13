@@ -1,0 +1,15 @@
+.listHeader {
+    display: grid;
+    grid-template-columns: 175px repeat(4, 120px);
+
+    padding: 5px 15px;
+    border-bottom: .5px solid #aaa;
+    width: fit-content;
+
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.headerItem {
+    text-align: center;
+}

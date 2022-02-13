@@ -35,7 +35,6 @@ function CsvDownload() {
     if (currentTarget) {
       if (currentTarget.newFilter) {
         const newEle = document.getElementById(`value-input-${filters.length - 1}`);
-        console.log(newEle);
         newEle.focus();
       } else {
         const { target, currentCursor } = currentTarget;

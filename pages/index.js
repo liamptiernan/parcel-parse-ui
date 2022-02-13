@@ -1,5 +1,6 @@
 import Header from '../components/header/header.jsx';
 import CsvDownload from '../components/csv_download/csv_download.jsx';
+import Table from '../components/table/item-list';
 import styles from '../styles/Home.module.css'
 
 // const defaultEndpoint = 'http://localhost:5000'
@@ -21,6 +22,9 @@ export default function Home({ data }) {
       <Header />
       <main>
         <CsvDownload />
+        <Table 
+          lines = {[]}
+        />
       </main>
     </div>
   )
