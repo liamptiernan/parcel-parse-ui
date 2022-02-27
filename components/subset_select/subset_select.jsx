@@ -6,11 +6,24 @@ import Select from 'react-select';
 import Button from 'react-bootstrap/Button';
 import Stack from 'react-bootstrap/Stack';
 
+
+function buildOptions(parcelLists) {
+  const options = [];
+
+  for (const list of parcelLists) {
+    const option = {
+      value: list.title,
+      label: list.title
+    }
+
+    options.push(option);
+  }
+
+  return options;
+}
+
 function SubsetSelect(props) {
-  const options = [
-    { value: 'All Properties', label: 'All Properties' },
-    { value: 'January Sheriff Sale', label: 'January Sheriff Sale Testing' },
-  ];
+  const options = buildOptions(props.parcelLists);
 
   return (
     <Stack direction="horizontal" gap={4} className='mb-2 mx-auto'>
@@ -19,7 +32,7 @@ function SubsetSelect(props) {
         classNamePrefix='subset'
         options={options}
         placeholder='Select Subset of Properties'
-        onChange={e => props.updateSubset(e.value)}
+        onChange={e => props.updateParcelList(e.value)}
       />
       <Button
         className={styles.button}

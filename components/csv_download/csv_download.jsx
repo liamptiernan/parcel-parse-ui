@@ -7,34 +7,13 @@ import styles from './csv_download.module.scss';
 import FilterGroup from '../filters/filter_group';
 import SubsetSelect from '../subset_select/subset_select';
 
-const defaultFilter = {
-  operator: null,
-  field: '',
-  logic: 'is',
-  value: ''
-}
-
-const defaultEndpoint = 'http://localhost:5000'
-
-async function fetchCsv() {
-  const res = await fetch(defaultEndpoint);
-  const data = await res.json();
-  return {
-    props: {
-      data
-    }
-  }
-}
-
-function CsvDownload() {
-  const [filters, setFilters] = useState([defaultFilter]);
-  const [subset, setSubset] = useState();
+function CsvDownload(props) {
   const [currentTarget, setCurrentTarget] = useState();
 
   useEffect(() => {
     if (currentTarget) {
       if (currentTarget.newFilter) {
-        const newEle = document.getElementById(`value-input-${filters.length - 1}`);
+        const newEle = document.getElementById(`value-input-${props.filters.length - 1}`);
         newEle.focus();
       } else {
         const { target, currentCursor } = currentTarget;
@@ -47,45 +26,22 @@ function CsvDownload() {
     }
   })
 
-  const updateSubset = value => {
-    setSubset(value);
-    console.log(subset)
-  }
-
-  const handleSubmit = async () => {
-    const payload = {
-      subset,
-      filters
-    }
-    console.log(await fetchCsv());
-  }
+  // const updateParcelList = value => {
+  //   console.log(value)
+  //   setParcelList(value);
+  //   console.log(parcelList)
+  // }
 
   const addFilter = () =>  {
-    const newFilter = {
-      operator: null,
-      field: '',
-      logic: 'is',
-      value: ''
-    }
-
-    setFilters(filters.concat(newFilter));
+    props.addFilter();
     setCurrentTarget({ newFilter: true });
   }
 
   const updateFilter = (target, field, i) => {
-    const newFilters = filters;
-
-    newFilters[i][field] = target.value;
-    setFilters(newFilters);
+    props.updateFilter(target, field, i);
 
     const currentCursor = target.selectionStart;
     setCurrentTarget({ target, currentCursor });
-  }
-
-  const deleteFilter = (i) => {
-    const newFilters = filters;
-    newFilters.splice(i, 1);
-    setFilters(newFilters);
   }
 
   return (
@@ -97,8 +53,9 @@ function CsvDownload() {
         </div>
         <Stack gap={3} className="mx-auto">
           <SubsetSelect 
-            updateSubset={updateSubset}
-            handleSubmit={handleSubmit}
+            updateParcelList={props.setParcelList}
+            handleSubmit={props.updateData}
+            parcelLists={props.parcelLists}
           />
           <Accordion className={styles.accordion}>
             <Accordion.Item eventKey='0'>
@@ -107,9 +64,9 @@ function CsvDownload() {
                 <FilterGroup
                   addFilter={addFilter}
                   updateFilter={updateFilter}
-                  deleteFilter={deleteFilter}
-                  filters={filters}
-                  filterCount={filters.length}
+                  deleteFilter={props.deleteFilter}
+                  filters={props.filters}
+                  filterCount={props.filters.length}
                 />
               </Accordion.Body>
             </Accordion.Item>
