@@ -13,7 +13,7 @@ function CsvDownload(props) {
   useEffect(() => {
     if (currentTarget) {
       if (currentTarget.newFilter) {
-        const newEle = document.getElementById(`value-input-${props.filters.length - 1}`);
+        const newEle = document.getElementById(`value-input-${props.filters.conditions.length - 1}`);
         newEle.focus();
       } else {
         const { target, currentCursor } = currentTarget;
@@ -25,12 +25,6 @@ function CsvDownload(props) {
       }
     }
   })
-
-  // const updateParcelList = value => {
-  //   console.log(value)
-  //   setParcelList(value);
-  //   console.log(parcelList)
-  // }
 
   const addFilter = () =>  {
     props.addFilter();
@@ -66,7 +60,8 @@ function CsvDownload(props) {
                   updateFilter={updateFilter}
                   deleteFilter={props.deleteFilter}
                   filters={props.filters}
-                  filterCount={props.filters.length}
+                  conjunction = {props.conjunction}
+                  updateConjunction = {props.updateConjunction}
                 />
               </Accordion.Body>
             </Accordion.Item>

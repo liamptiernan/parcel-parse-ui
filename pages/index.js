@@ -7,10 +7,15 @@ import styles from '../styles/Home.module.css';
 import { useState } from 'react';
 
 const defaultFilter = {
-  operator: null,
-  field: '',
-  logic: 'is',
-  value: ''
+  conditions: [
+    {
+      operator: null,
+      field: '',
+      logic: 'is',
+      value: ''
+    }
+  ],
+  conjunction: 'and'
 }
 
 function filterData(data, filters) {
@@ -26,7 +31,7 @@ function filterData(data, filters) {
    */
 
   let filteredData = [];
-  for (const filter of filters) {
+  for (const filter of filters.conditions) {
     const newFilter = operators(data, filter, filter.logic)
     filteredData = filteredData.concat(newFilter);
   }
@@ -37,32 +42,49 @@ function filterData(data, filters) {
 function Home(props) {
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
-  const [filters, setFilters] = useState([defaultFilter]);
+  const [filters, setFilters] = useState(defaultFilter);
   const [parcelList, setParcelList] = useState();
 
   const addFilter = () => {
-    const newFilter = {
-      operator: null,
+    const newFilters = filters;
+    
+    const newCondition = {
       field: '',
       logic: 'is',
       value: ''
     }
+    newFilters.conditions = newFilters.conditions.concat(newCondition);
 
-    setFilters(filters.concat(newFilter))
+    console.log(newFilters)
+    setFilters(newFilters)
   }
 
   const updateFilter = (target, field, i) => {
     const newFilters = filters;
-    newFilters[i][field] = target.value;
+    newFilters.conditions[i][field] = target.value;
     const filteredData = filterData(data, newFilters);
 
     setFilteredData(filteredData);
     setFilters(newFilters);
   }
 
+  const updateConjunction = (target) => {
+    const newFilters = filters;
+    newFilters.conjunction = target.value;
+    const filteredData = filterData(data, newFilters);
+
+    setFilteredData(filteredData);
+    setFilters(newFilters);
+
+  }
+
   const deleteFilter = (i) => {
     const newFilters = filters;
-    newFilters.splice(i, 1);
+    newFilters.conditions.splice(i, 1);
+
+    const filteredData = filterData(data, newFilters);
+
+    setFilteredData(filteredData);
     setFilters(newFilters);
   }
 
@@ -99,6 +121,8 @@ function Home(props) {
           addFilter={addFilter}
           updateFilter={updateFilter}
           deleteFilter={deleteFilter}
+          updateConjunction = {updateConjunction}
+          conjunction = {filters.conjunction}
         />
         <Table 
           lines = {filteredData}

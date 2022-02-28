@@ -1,4 +1,4 @@
-const operatorOptions = [
+const conjunctionOptions = [
   {
     value: 'and',
     label: 'and'
@@ -67,4 +67,4 @@ const equalityOptions = [
   },
 ];
 
-export { operatorOptions, fieldOptions, equalityOptions };
+export { conjunctionOptions, fieldOptions, equalityOptions };
