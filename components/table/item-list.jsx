@@ -3,22 +3,21 @@ import Item from './item';
 import styles from './item.module.scss';
 
 function ItemList(props) {
-  const { lines, team, totals } = props;
+  const { lines } = props;
 
   return (
     <div className={styles.list}>
-      <h2>{team}</h2>
-      <ListHeader team={team} />
-      {team && teamSum}
+      <ListHeader />
       <ul className={styles.listBody}>
         {lines.map((line, i) => (
           <Item
-            title={line.name}
-            budget={line.budget}
-            spend={line.spend}
-            revenue={line.revenue}
-            profit={line.profit}
-            external_id={line.external_id}
+            parcelId={line.parcel_id}
+            propertyAddress={line.property_location}
+            township={line.township}
+            landUse={line.land_use}
+            landArea={line.land_area}
+            propertyClass={line.property_class}
+            livingUnits={line.living_units}
             key={i}
           />
         ))}

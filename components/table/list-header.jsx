@@ -1,14 +1,15 @@
 import styles from './listHeader.module.scss';
 
-function ListHeader(props) {
-  const teamName = props.team ? 'Video Title' : 'Team';
+function ListHeader() {
   return (
     <div className={styles.listHeader}>
-      <div className={styles.headerItemTeam}>{teamName}</div>
-      <div className={styles.headerItem}>Budget</div>
-      <div className={styles.headerItem}>Spend</div>
-      <div className={styles.headerItem}>Revenue</div>
-      <div className={styles.headerItem}>Profit</div>
+      <div className={styles.headerItem}>Parcel ID</div>
+      <div className={styles.headerItem}>Property Address</div>
+      <div className={styles.headerItem}>Township</div>
+      <div className={styles.headerItem}>Land Use</div>
+      <div className={styles.headerItem}>Property Class</div>
+      <div className={styles.headerItem}>Living Units</div>
+      <div className={styles.headerItem}>Land Area</div>
     </div>
   );
 }

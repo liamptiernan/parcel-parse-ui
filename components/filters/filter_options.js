@@ -11,16 +11,16 @@ const operatorOptions = [
 
 const fieldOptions = [
   {
-    value: 'owner',
-    label: 'Owner'
+    value: 'property_class',
+    label: 'Property Class'
   },
   {
-    value: 'lot_size',
-    label: 'Lot Size'
+    value: 'land_area',
+    label: 'Land Area'
   },
   {
-    value: 'type',
-    label: 'Type'
+    value: 'township',
+    label: 'Township'
   },
 ];
 
@@ -30,12 +30,40 @@ const equalityOptions = [
     label: 'is'
   },
   {
-    value: 'is_not',
+    value: 'isNot',
     label: 'is not'
   },
   {
     value: 'contains',
     label: 'contains'
+  },
+  {
+    value: 'notContain',
+    label: 'does not contain'
+  },
+  {
+    value: 'equals',
+    label: '='
+  },
+  {
+    value: 'notEqual',
+    label: '≠'
+  },
+  {
+    value: 'greaterThan',
+    label: '>'
+  },
+  {
+    value: 'greaterThanEq',
+    label: '>='
+  },
+  {
+    value: 'lessThan',
+    label: '<'
+  },
+  {
+    value: 'lessThanEq',
+    label: '<='
   },
 ];
 

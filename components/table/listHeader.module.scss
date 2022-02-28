@@ -1,13 +1,17 @@
 .listHeader {
     display: grid;
-    grid-template-columns: 175px repeat(4, 120px);
+    grid-template-columns: repeat(7, 125px);
 
-    padding: 5px 15px;
+    position: sticky;
+    top: 0;
+
+    padding: 15px 17px;
     border-bottom: .5px solid #aaa;
     width: fit-content;
+    background-color: white;
 
     font-weight: bold;
-    font-size: 18px;
+    font-size: 15px;
 }
 
 .headerItem {

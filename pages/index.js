@@ -1,7 +1,9 @@
-import Header from '../components/header/header.jsx';
 import CsvDownload from '../components/csv_download/csv_download.jsx';
+import Header from '../components/header/header.jsx';
 import Table from '../components/table/item-list';
-import styles from '../styles/Home.module.css'
+
+import operators from '../utils/operators';
+import styles from '../styles/Home.module.css';
 import { useState } from 'react';
 
 const defaultFilter = {
@@ -11,8 +13,30 @@ const defaultFilter = {
   value: ''
 }
 
+function filterData(data, filters) {
+  /*
+   * Take array of filter objects and apply logic to data
+   * data.filter(parcel => parcel.{filter.field} === {filter.value})
+   * 
+   * operator - how are we combining these things - this changes the method for concat data
+   * equality - how are we comparing these things - this changes the comparison in the function
+   * field - what are we looking at
+   * value - what should it equal
+   * 
+   */
+
+  let filteredData = [];
+  for (const filter of filters) {
+    const newFilter = operators(data, filter, filter.logic)
+    filteredData = filteredData.concat(newFilter);
+  }
+
+  return filteredData;
+}
+
 function Home(props) {
   const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const [filters, setFilters] = useState([defaultFilter]);
   const [parcelList, setParcelList] = useState();
 
@@ -30,6 +54,9 @@ function Home(props) {
   const updateFilter = (target, field, i) => {
     const newFilters = filters;
     newFilters[i][field] = target.value;
+    const filteredData = filterData(data, newFilters);
+
+    setFilteredData(filteredData);
     setFilters(newFilters);
   }
 
@@ -55,6 +82,7 @@ function Home(props) {
     }
     console.log('complete')
     setData(completeRes);
+    setFilteredData(completeRes);
     console.log(data)
   }
 
@@ -73,7 +101,7 @@ function Home(props) {
           deleteFilter={deleteFilter}
         />
         <Table 
-          lines = {[]}
+          lines = {filteredData}
         />
       </main>
     </div>
