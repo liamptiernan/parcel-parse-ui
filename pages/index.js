@@ -9,9 +9,8 @@ import { useState } from 'react';
 const defaultFilter = {
   conditions: [
     {
-      operator: null,
-      field: '',
-      logic: 'is',
+      field: null,
+      logic: null,
       value: ''
     }
   ],
@@ -28,12 +27,28 @@ function filterData(data, filters) {
    * field - what are we looking at
    * value - what should it equal
    * 
+   * if conjunction is and
+   * pass the filtered list through iteratively
+   * 
+   * if or
+   * additively
+   * 
    */
 
-  let filteredData = [];
+  const workingData = data;
+  let filteredData = filters.conjunction === 'and' ? data : [];
   for (const filter of filters.conditions) {
-    const newFilter = operators(data, filter, filter.logic)
-    filteredData = filteredData.concat(newFilter);
+    if (filter.field && filter.logic) {
+      if (filters.conjunction === 'and') {
+        const currentFilter = operators(filteredData, filter, filter.logic)
+        filteredData = currentFilter.newData;
+      } else {
+        //TODO : 'or' conjunciton isnt working
+        const currentFilter = operators(workingData, filter, filter.logic);
+        filteredData = filteredData.concat(currentFilter.newData);
+        workingData = currentFilter.inverse;
+      }
+    }
   }
 
   return filteredData;
@@ -49,19 +64,24 @@ function Home(props) {
     const newFilters = filters;
     
     const newCondition = {
-      field: '',
-      logic: 'is',
+      field: null,
+      logic: null,
       value: ''
     }
     newFilters.conditions = newFilters.conditions.concat(newCondition);
 
-    console.log(newFilters)
     setFilters(newFilters)
   }
 
   const updateFilter = (target, field, i) => {
     const newFilters = filters;
     newFilters.conditions[i][field] = target.value;
+
+    if (field === 'field') {
+      newFilters.conditions[i]['logic'] = null;
+      newFilters.conditions[i]['value'] = '';
+    }
+
     const filteredData = filterData(data, newFilters);
 
     setFilteredData(filteredData);

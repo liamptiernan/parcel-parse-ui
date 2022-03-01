@@ -7,37 +7,124 @@ const operators = (data, filter, method) => {
   if (textMethods.includes(method)) {
     cleanValue = value.toLowerCase();
   } else if (value === '') {
-    return data;
+    return {
+      newData: data,
+      inverse: []
+    };
   }
+
+  let newData = [];
+  let inverse = [];
 
   switch (method) {
     case 'is':
-      return data.filter(parcel => parcel[field].toLowerCase() === cleanValue);
+      for (const record of data) {
+        if (record[field].toLowerCase() === cleanValue) {
+          newData.push(record);
+        } else {
+          inverse.push(record);
+        }
+      }
+      break;
     case 'isNot':
-      return data.filter(parcel => parcel[field].toLowerCase() !== cleanValue);
+      for (const record of data) {
+        if (record[field].toLowerCase() !== cleanValue) {
+          newData.push(record);
+        } else {
+          inverse.push(record);
+        }
+      }
+      break;
     case 'contains':
-      if (cleanValue === '') return data; 
+      if (cleanValue === '') {
+        newData = data;
+        inverse = []
+        break;
+      }
 
-      return data.filter(parcel => parcel[field].toLowerCase().includes(cleanValue));
+      for (const record of data) {
+        if (record[field].toLowerCase().includes(cleanValue)) {
+          newData.push(record);
+        } else {
+          inverse.push(record);
+        }
+      }
+      break;
     case 'notContain':
-      if (cleanValue === '') return data;
+      if (cleanValue === '') {
+        newData = data;
+        inverse = []
+        break;
+      }
       
-      return data.filter(parcel => !parcel[field].toLowerCase().includes(cleanValue));
+      for (const record of data) {
+        if (!record[field].toLowerCase().includes(cleanValue)) {
+          newData.push(record);
+        } else {
+          inverse.push(record);
+        }
+      }
+      break;
     case 'equals':
-      return data.filter(parcel => parcel[field] === cleanValue);
+      for (const record of data) {
+        if (record[field] === cleanValue) {
+          newData.push(record);
+        } else {
+          inverse.push(record);
+        }
+      }
+      break;
     case 'notEqual':
-      return data.filter(parcel => parcel[field] !== cleanValue);
+      for (const record of data) {
+        if (record[field] !== cleanValue) {
+          newData.push(record);
+        } else {
+          inverse.push(record);
+        }
+      }
     case 'lessThan':
-      return data.filter(parcel => parcel[field] < cleanValue);
+      for (const record of data) {
+        if (record[field] < cleanValue) {
+          newData.push(record);
+        } else {
+          inverse.push(record);
+        }
+      }
+      break;
     case 'lessThanEq':
-      return data.filter(parcel => parcel[field] <= cleanValue);
+      for (const record of data) {
+        if (record[field] <= cleanValue) {
+          newData.push(record);
+        } else {
+          inverse.push(record);
+        }
+      }
+      break;
     case 'greaterThan':
-      return data.filter(parcel => parcel[field] > cleanValue);
+      for (const record of data) {
+        if (record[field] > cleanValue) {
+          newData.push(record);
+        } else {
+          inverse.push(record);
+        }
+      }
+      break;
     case 'greaterThanEq':
-      return data.filter(parcel => parcel[field] >= cleanValue);
+      for (const record of data) {
+        if (record[field] >= cleanValue) {
+          newData.push(record);
+        } else {
+          inverse.push(record);
+        }
+      }
+      break;
+    default:
+      newData = [];
+      inverse = data;
+      break;
   }
 
-  return [];
+  return { newData, inverse }
 };
 
 export default operators;

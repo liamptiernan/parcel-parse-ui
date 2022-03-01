@@ -9,7 +9,7 @@ import { ReactSVG } from 'react-svg';
 import Stack from 'react-bootstrap/Stack';
 
 function FilterGroup(props) {
-  const [changeCount, setChangeCount] = useState(props.filters.length);
+  const [changeCount, setChangeCount] = useState(props.filters.conditions.length);
 
   const deleteFilter = i => {
     props.deleteFilter(i);

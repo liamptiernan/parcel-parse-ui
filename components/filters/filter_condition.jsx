@@ -8,25 +8,43 @@ import { ReactSVG } from 'react-svg';
 import Select from 'react-select';
 import Stack from 'react-bootstrap/Stack'
 
-const getCurrentOption = (value, select) => {
-  let filteredOptions = options.conjunctionOptions;
-  if (select === 'field') {
-    filteredOptions = options.fieldOptions
-  } else if (select === 'logic') {
-    filteredOptions = options.equalityOptions;
-  }
-
-  for (const option of filteredOptions) {
-    if (option.value === value) {
-      return option
-    }
-  }
-}
-
 function FilterCondition (props) {
 
   const updateValue = (target, field, id) => {
     props.updateFilter(target, field, id);
+  }
+
+  const filterOptions = () => {
+    const currentField = getCurrentOption(props.values.field, 'field');
+
+    if (currentField && currentField.isNumeric) {
+      return options.equalityOptions.filter(option => option.isNumeric);
+    } else if (currentField && !currentField.isNumeric) {
+      return options.equalityOptions.filter(option => !option.isNumeric);
+    }
+
+    return [];
+  }
+
+  const getCurrentOption = (value, select) => {
+    let filteredOptions = options.conjunctionOptions;
+    if (select === 'field') {
+      filteredOptions = options.fieldOptions
+    } else if (select === 'logic') {
+      const currentField = getCurrentOption(props.values.field, 'field');
+
+      if (currentField && currentField.isNumeric) {
+        filteredOptions = options.equalityOptions.filter(option => option.isNumeric);
+      } else {
+        filteredOptions = options.equalityOptions.filter(option => !option.isNumeric);
+      }
+    }
+  
+    for (const option of filteredOptions) {
+      if (option.value === value) {
+        return option
+      }
+    }
   }
 
   const conjunctionSelect = <Select 
@@ -67,7 +85,7 @@ function FilterCondition (props) {
             className={styles.filterSelect}
             classNamePrefix='equality'
             onChange={e => props.updateFilter(e, 'logic', props.id)}
-            options={options.equalityOptions}
+            options={filterOptions()}
             value={getCurrentOption(props.values.logic, 'logic')}
           />
           <input

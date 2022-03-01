@@ -11,17 +11,35 @@ const conjunctionOptions = [
 
 const fieldOptions = [
   {
-    value: 'property_class',
-    label: 'Property Class'
+    value: 'parcel_id',
+    label: 'Parcel ID'
   },
   {
-    value: 'land_area',
-    label: 'Land Area'
+    value: 'property_location',
+    label: 'Property Address'
   },
   {
     value: 'township',
     label: 'Township'
   },
+  {
+    value: 'land_use',
+    label: 'Land Use'
+  },
+  {
+    value: 'property_class',
+    label: 'Property Class',
+  },
+  {
+    value: 'living_units',
+    label: 'Living Units',
+    isNumeric: true
+  },
+  {
+    value: 'land_area',
+    label: 'Land Area',
+    isNumeric: true
+  }
 ];
 
 const equalityOptions = [
@@ -43,27 +61,33 @@ const equalityOptions = [
   },
   {
     value: 'equals',
-    label: '='
+    label: '=',
+    isNumeric: true
   },
   {
     value: 'notEqual',
-    label: '≠'
+    label: '≠',
+    isNumeric: true
   },
   {
     value: 'greaterThan',
-    label: '>'
+    label: '>',
+    isNumeric: true
   },
   {
     value: 'greaterThanEq',
-    label: '>='
+    label: '>=',
+    isNumeric: true
   },
   {
     value: 'lessThan',
-    label: '<'
+    label: '<',
+    isNumeric: true
   },
   {
     value: 'lessThanEq',
-    label: '<='
+    label: '<=',
+    isNumeric: true
   },
 ];
 

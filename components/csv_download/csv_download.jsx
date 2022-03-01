@@ -18,9 +18,11 @@ function CsvDownload(props) {
       } else {
         const { target, currentCursor } = currentTarget;
         if (target.id && target.id.includes('value-input-')) {
-          let ele = document.getElementById(target.id)
-          ele.focus();
-          ele.setSelectionRange(currentCursor,currentCursor);
+          let ele = document.getElementById(target.id);
+          if (ele) {
+            ele.focus();
+            ele.setSelectionRange(currentCursor,currentCursor);
+          }
         }
       }
     }
@@ -38,6 +40,10 @@ function CsvDownload(props) {
     setCurrentTarget({ target, currentCursor });
   }
 
+  const deleteFilter = (i) => {
+    props.deleteFilter(i)
+    setCurrentTarget(null)
+  }
   return (
     <div className={styles.container}>
       <Stack gap={2} className="col-md-5 mx-auto">
@@ -58,7 +64,7 @@ function CsvDownload(props) {
                 <FilterGroup
                   addFilter={addFilter}
                   updateFilter={updateFilter}
-                  deleteFilter={props.deleteFilter}
+                  deleteFilter={deleteFilter}
                   filters={props.filters}
                   conjunction = {props.conjunction}
                   updateConjunction = {props.updateConjunction}
