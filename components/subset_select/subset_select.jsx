@@ -26,12 +26,12 @@ function SubsetSelect(props) {
   const options = buildOptions(props.parcelLists);
 
   return (
-    <Stack direction="horizontal" gap={4} className='m-auto'>
+    <Stack direction="horizontal" gap={1} className='m-auto'>
       <Select
         className={styles.select}
         classNamePrefix='subset'
         options={options}
-        placeholder='Select Subset of Properties'
+        placeholder='Select Subset of Parcels'
         onChange={e => props.updateParcelList(e.value)}
       />
       <Button
@@ -39,7 +39,8 @@ function SubsetSelect(props) {
         onClick={props.handleSubmit}
       >
         <ReactSVG 
-          src='download.svg'
+        className={styles.updateSvg}
+          src='arrow-clockwise.svg'
         />
       </Button>
     </Stack>

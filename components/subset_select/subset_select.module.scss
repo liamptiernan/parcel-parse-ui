@@ -2,10 +2,15 @@ $font-color: hsl(0, 0%, 20%);
 
 .select {
   height: 32px;
-  width: 250px;
+  width: 225px;
   
   [class*="-control"] {
     cursor: pointer;
+    border-color: rgba(0,0,0,.125);
+
+    height: 32px;
+    min-height: 32px;
+    align-items: flex-start;
   }
 
   input {
@@ -19,6 +24,18 @@ $font-color: hsl(0, 0%, 20%);
 
   [class*="__menu-list "] {
     padding: 2px 2px;
+  }
+
+  [class*="__indicators "] {
+    height: 30px;
+  }
+
+  [class*="__indicator-separator "] {
+    display: none;
+  }
+
+  [class*="__value-container"] {
+    padding: 0px 8px;
   }
 
   [class*="__option "] {
@@ -39,7 +56,15 @@ $font-color: hsl(0, 0%, 20%);
 }
 
 .button {
+  height: 28px;
+  width: 28px;
+  padding: 0px;
+
   &:focus-visible {
     box-shadow: 0px 0px 1px 3px #71afff !important; 
   }
+}
+
+.updateSvg {
+  margin: auto;
 }
