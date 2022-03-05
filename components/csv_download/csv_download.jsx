@@ -46,33 +46,28 @@ function CsvDownload(props) {
   }
   return (
     <div className={styles.container}>
-      <Stack gap={2} className="col-md-5 mx-auto">
-        <div className={styles.header}>
-          <h1 className='mx-auto'>Download Spreadsheet</h1>
-          <p className='mx-auto'>Download a spreadsheet of property data</p>
-        </div>
-        <Stack gap={3} className="mx-auto">
-          <SubsetSelect 
-            updateParcelList={props.setParcelList}
-            handleSubmit={props.updateData}
-            parcelLists={props.parcelLists}
-          />
-          <Accordion className={styles.accordion}>
-            <Accordion.Item eventKey='0'>
-              <Accordion.Header>Filters</Accordion.Header>
-              <Accordion.Body>
-                <FilterGroup
-                  addFilter={addFilter}
-                  updateFilter={updateFilter}
-                  deleteFilter={deleteFilter}
-                  filters={props.filters}
-                  conjunction = {props.conjunction}
-                  updateConjunction = {props.updateConjunction}
-                />
-              </Accordion.Body>
-            </Accordion.Item>
-          </Accordion>
-        </Stack>
+      <Stack gap={4} direction='horizontal'>
+        <h1 className={styles.header}>Monroe County, PA</h1>
+        <SubsetSelect 
+          updateParcelList={props.setParcelList}
+          handleSubmit={props.updateData}
+          parcelLists={props.parcelLists}
+        />
+        <Accordion className={styles.accordion}>
+          <Accordion.Item eventKey='0'>
+            <Accordion.Header>Filters</Accordion.Header>
+            <Accordion.Body>
+              <FilterGroup
+                addFilter={addFilter}
+                updateFilter={updateFilter}
+                deleteFilter={deleteFilter}
+                filters={props.filters}
+                conjunction = {props.conjunction}
+                updateConjunction = {props.updateConjunction}
+              />
+            </Accordion.Body>
+          </Accordion.Item>
+        </Accordion>
       </Stack>
     </div>
   )

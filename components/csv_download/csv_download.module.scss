@@ -6,7 +6,7 @@ $light-font-color: #6c757d;
 .container {
   margin: auto;
   margin-top: 40px;
-  width: 600px;
+  width: 90%;
   padding: 20px;
 
   border: 1px solid #ddd;
@@ -15,23 +15,17 @@ $light-font-color: #6c757d;
   box-shadow: 0px 0px 10px #ddd;
 
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
 }
 
 .header {
-  margin-bottom: 20px;
-  text-align: center;
-
-  border-bottom: $standard-border;
-  
-  p {
-    color: $light-font-color;
-  }
+  font-size: 1.4em;
+  margin: auto;
 }
 
 .accordion {
-  min-width: 560px;
+  // min-width: 550px;
+  margin: auto;
 
   [class*="accordion-button"] {
     margin: auto;
@@ -61,6 +55,10 @@ $light-font-color: #6c757d;
   }
 
   [class*="accordion-collapse"] {
-    border-top: $accordion-border;
+    border: $accordion-border;
+    min-width: 550px;
+    background-color: white;
+    position: absolute;
+    z-index: 1;
   }
 }

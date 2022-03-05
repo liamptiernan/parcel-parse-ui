@@ -26,7 +26,7 @@ function SubsetSelect(props) {
   const options = buildOptions(props.parcelLists);
 
   return (
-    <Stack direction="horizontal" gap={4} className='mb-2 mx-auto'>
+    <Stack direction="horizontal" gap={4} className='m-auto'>
       <Select
         className={styles.select}
         classNamePrefix='subset'
