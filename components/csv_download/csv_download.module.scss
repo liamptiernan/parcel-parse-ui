@@ -24,13 +24,13 @@ $light-font-color: #6c757d;
 }
 
 .accordion {
-  // min-width: 550px;
   margin: auto;
 
   [class*="accordion-button"] {
     margin: auto;
     height: 30px;
     justify-content: center;
+    padding: 1rem;
 
     border: 1px solid transparent;
     color: $font-color;
@@ -38,12 +38,18 @@ $light-font-color: #6c757d;
     box-shadow: none;
 
     &:hover {
-      background-color: hsl(0%, 0%, 95%);
+      background-color: hsl(0deg, 0%, 95%);
     }
 
     &:focus-visible {
       border: 1px solid #2684ff;
     }
+
+    &:not([class*="collapsed"])::after {
+      background-image: url('../../public/drop-chevron.svg');
+      transform: rotate(-180deg) translateY(-1px);
+    }
+
   }
 
   ::after {
@@ -51,7 +57,9 @@ $light-font-color: #6c757d;
     height: .9em;
     background-size: 1em;
     margin: 0 0px 0 5px;
-    color: $light-font-color;
+    color: hsl(0, 0%, 80%);
+    background-image: url('../../public/drop-chevron.svg');
+
   }
 
   [class*="accordion-collapse"] {
@@ -61,4 +69,9 @@ $light-font-color: #6c757d;
     position: absolute;
     z-index: 1;
   }
+}
+
+.accordion-button:not(.collapsed)::after {
+  background-image: url('../../public/drop-chevron.svg');
+  transform: rotate(-180deg);
 }
