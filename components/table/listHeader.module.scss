@@ -1,6 +1,7 @@
 .listHeader {
     display: grid;
-    grid-template-columns: repeat(7, 125px);
+    grid-template-columns: repeat(36, 125px);
+    text-align: center;
 
     position: sticky;
     top: 0;
