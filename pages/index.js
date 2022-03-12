@@ -17,43 +17,6 @@ const defaultFilter = {
   conjunction: 'and'
 }
 
-// async function processData(array, filter) {
-//   const index = 0;
-//   const subsetSize = 200;
-//   const processedData = {
-//     newData: [],
-//     inverse: []
-//   }
-
-//   function processChunk() {
-//     console.log(index)
-//     const dataSubset = array.slice(index, subsetSize);
-//     const filteredChunk = operators(dataSubset, filter, filter.logic);
-//     processedData.newData = processedData.newData.concat(filteredChunk.newData);
-//     processedData.inverse = processedData.inverse.concat(filteredChunk.inverse);
-//     index+=200
-
-//     if (index < array.length) {
-//       // TODO: this doesnt work at the moment.
-//       // setTimeout adds this to the event loop, which is good, but then we can't wait for the return
-//       // instead, we need to add things to the event loop at a higher level and then write their results directly to state
-//       // We can potentially do this from the handler functions in the component... but we need the whole array for context so this sucks
-//       // Maybe we add this looping functionality to the filterHandler() function. Call baby chunks of data as we go
-//       setTimeout(processChunk);
-//     }
-
-//     return new Promise(resolve => {
-//       resolve()
-//     })
-//   }
-
-//   await processChunk();
-//   console.log('chunks done')
-//   return new Promise((resolve) => {
-//     resolve(processedData)
-//   })
-// }
-
 function filterData(data, filters) {
   /*
    * Take array of filter objects and apply logic to data
@@ -125,33 +88,24 @@ function Home(props) {
   }
 
   const updateConjunction = (target) => {
+    const newFilters = {
+      conjunction: target.value,
+      conditions: filters.conditions
+    }
 
-    // TODO: update this for the new changes
-    const newFilters = filters;
-    newFilters.conjunction = target.value;
     setFilters(newFilters);
-
-    filterHandler(data, newFilters).then(filteredData => {
-      setFilteredData(filteredData);
-    }).catch(err => {
-      console.log(err)
-    })
-    console.log('outside')
-
   }
 
   const deleteFilter = (i) => {
-    const newFilters = filters;
-    newFilters.conditions.splice(i, 1);
-    setFilters(newFilters);
+    const newConditions = filters.conditions.slice();
+    newConditions.splice(i, 1);
 
-    filterHandler(data, newFilters).then(filteredData => {
-      console.log('running in then')
-      setFilteredData(filteredData);
-    }).catch(err => {
-      console.log(err)
-    })
-    console.log('outside');
+    const newFilters = {
+      conjunction: filters.conjunction,
+      conditions: newConditions
+    }
+
+    setFilters(newFilters);
   }
 
   const updateData = async () => {
@@ -160,7 +114,6 @@ function Home(props) {
     while (true) {
       const res = await fetch(`https://parcel-parse.herokuapp.com/api/list?listName=${parcelList}&pageSize=500&offset=${offset}`, {headers: {Authorization: 'ZunderBunder2558'}})  
       const json = await res.json();
-      console.log(json)
 
       if (json.length === 0) {
         break;
@@ -168,7 +121,7 @@ function Home(props) {
       completeRes = completeRes.concat(json)
       offset = offset + 500;
     }
-    console.log('complete')
+
     setData(completeRes);
     setFilteredData(completeRes);
   }
