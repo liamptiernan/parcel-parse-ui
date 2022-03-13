@@ -4,6 +4,7 @@ import { ReactSVG } from 'react-svg';
 import Select from 'react-select';
 
 import Button from 'react-bootstrap/Button';
+import Spinner from 'react-bootstrap/Spinner'
 import Stack from 'react-bootstrap/Stack';
 
 
@@ -25,6 +26,18 @@ function buildOptions(parcelLists) {
 function SubsetSelect(props) {
   const options = buildOptions(props.parcelLists);
 
+  let buttonSign = <ReactSVG 
+    className={styles.updateSvg}
+    src='arrow-clockwise.svg'
+  />
+
+  if (props.isLoading) {
+    buttonSign = <ReactSVG 
+    className={styles.spinnerConstant}
+    src='arrow-clockwise.svg'
+  />
+  }
+
   return (
     <Stack direction="horizontal" gap={1} className='m-auto'>
       <Select
@@ -38,10 +51,7 @@ function SubsetSelect(props) {
         className={styles.button}
         onClick={props.handleSubmit}
       >
-        <ReactSVG 
-        className={styles.updateSvg}
-          src='arrow-clockwise.svg'
-        />
+        {buttonSign}
       </Button>
     </Stack>
   )

@@ -60,3 +60,27 @@
   color: #555;
   text-decoration: underline;
 }
+
+@keyframes loading {  
+  to {
+    background-position: 4600px 0px, 0px 0px, 0px 80px, 0px 160px, 0px 240px, 0px 320px;
+  }
+}
+
+.tableLoading {
+  width: 4600px;
+  height: 50vh;
+  margin: 20px; 
+  cursor: progress; 
+  background:
+    linear-gradient(0.25turn, transparent, #fff, transparent),
+    linear-gradient(hsl(0, 0%, 95%), hsl(0, 0%, 95%)),
+    linear-gradient(hsl(0, 0%, 95%), hsl(0, 0%, 95%)),
+    linear-gradient(hsl(0, 0%, 95%), hsl(0, 0%, 95%)),
+    linear-gradient(hsl(0, 0%, 95%), hsl(0, 0%, 95%)),
+    linear-gradient(hsl(0, 0%, 95%), hsl(0, 0%, 95%));
+  background-repeat: no-repeat;
+  background-size: auto 50vh, auto 60px, auto 60px, auto 60px, auto 60px, auto 60px;
+  background-position: -4600px 0px, 0px 0px, 0px 80px, 0px 160px, 0px 240px, 0px 320px; 
+  animation: loading 1.5s infinite;
+}

@@ -46,6 +46,8 @@ function Home(props) {
   const [filters, setFilters] = useState(defaultFilter);
   const [parcelList, setParcelList] = useState();
   const [timer, setTimer] = useState();
+  const [dataIsLoading, setDataIsLoading] = useState(false);
+  const [tableIsLoading, setTableIsLoading] = useState(false);
 
   const updateTable = () => {
     const filteredData = filterData(data, filters);
@@ -109,6 +111,9 @@ function Home(props) {
   }
 
   const updateData = async () => {
+    if (!parcelList) { return; }
+    setDataIsLoading(true);
+    setTableIsLoading(true);
     let offset = 0;
     const completeRes = [];
     while (true) {
@@ -120,10 +125,14 @@ function Home(props) {
       }
       completeRes = completeRes.concat(json)
       offset = offset + 500;
+      setFilteredData(completeRes);
+      setTableIsLoading(false);
     }
 
     setData(completeRes);
     setFilteredData(completeRes);
+    setDataIsLoading(false);
+    setTableIsLoading(false);
   }
 
   return (
@@ -141,10 +150,12 @@ function Home(props) {
           deleteFilter={deleteFilter}
           updateConjunction = {updateConjunction}
           conjunction = {filters.conjunction}
+          dataIsLoading = {dataIsLoading}
         />
         <Table
           filters = {filters}
           lines = {filteredData}
+          tableIsLoading = {tableIsLoading}
         />
       </main>
     </div>

@@ -52,6 +52,7 @@ function CsvDownload(props) {
           updateParcelList={props.setParcelList}
           handleSubmit={props.updateData}
           parcelLists={props.parcelLists}
+          isLoading = {props.dataIsLoading}
         />
         <Accordion className={styles.accordion}>
           <Accordion.Item eventKey='0'>
