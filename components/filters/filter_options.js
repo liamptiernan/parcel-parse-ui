@@ -80,7 +80,7 @@ const fieldOptions = [
   },
   {
     value: 'basement',
-    label: 'basement',
+    label: 'Basement',
   },
   {
     value: 'amenity_1',

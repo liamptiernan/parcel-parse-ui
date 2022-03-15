@@ -4,7 +4,6 @@ import { ReactSVG } from 'react-svg';
 import Select from 'react-select';
 
 import Button from 'react-bootstrap/Button';
-import Spinner from 'react-bootstrap/Spinner'
 import Stack from 'react-bootstrap/Stack';
 
 

@@ -1,3 +1,4 @@
+import AboutModal from '../components/about_modal/about.jsx';
 import CsvDownload from '../components/csv_download/csv_download.jsx';
 import Header from '../components/header/header.jsx';
 import Table from '../components/table/item-list';
@@ -48,6 +49,11 @@ function Home(props) {
   const [timer, setTimer] = useState();
   const [dataIsLoading, setDataIsLoading] = useState(false);
   const [tableIsLoading, setTableIsLoading] = useState(false);
+  const [isFirstLoad, setIsFirstLoad] = useState(true);
+  const [modalShow, setModalShow] = useState(false);
+
+  const handleModalClose = () => setModalShow(false);
+  const handleModalShow = () => setModalShow(true);
 
   const updateTable = () => {
     const filteredData = filterData(data, filters);
@@ -58,7 +64,14 @@ function Home(props) {
     clearTimeout(timer);
     timer = setTimeout(updateTable, 500);
     setTimer(timer);
-  }, [filters])
+  }, [filters]);
+
+  useEffect(async () => {
+    if (isFirstLoad) {
+      setIsFirstLoad(false);
+      return await fetch(`https://parcel-parse.herokuapp.com/health`, {headers: {Authorization: 'ZunderBunder2558'}});
+    }
+  }, [isFirstLoad])
 
   const addFilter = () => {
     const newFilters = filters;
@@ -138,8 +151,14 @@ function Home(props) {
   return (
     <div className={styles.container}>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-      <Header />
+      <Header
+        handleModalShow = {handleModalShow}
+      />
       <main>
+        <AboutModal
+          handleModalClose = {handleModalClose}
+          modalShow = {modalShow}
+        />
         <CsvDownload 
           parcelLists={props.parcelLists}
           filters={filters}
@@ -162,7 +181,7 @@ function Home(props) {
   )
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const res = await fetch('https://parcel-parse.herokuapp.com/api/list-names', {headers: {Authorization: 'ZunderBunder2558'}});
   const data = await res.json();
 
