@@ -1,12 +1,12 @@
 $accordion-border: 1px solid rgba(0,0,0,.125);
 $standard-border: 1px solid hsl(0, 0%, 80%);
-$font-color: hsl(0, 0%, 20%);
+$font-color: hsl(0, 0%, 50%);
 $light-font-color: #6c757d;
 
 .container {
   margin: auto;
-  margin-top: 40px;
-  width: 600px;
+  margin-top: 20px;
+  width: 90%;
   padding: 20px;
 
   border: 1px solid #ddd;
@@ -15,28 +15,29 @@ $light-font-color: #6c757d;
   box-shadow: 0px 0px 10px #ddd;
 
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
 }
 
 .header {
-  margin-bottom: 20px;
-  text-align: center;
+  font-size: 1.4em;
+  margin: auto;
+  white-space: nowrap;
+}
 
-  border-bottom: $standard-border;
-  
-  p {
-    color: $light-font-color;
-  }
+.pageLabel {
+  margin: 0px;
+  padding-right: 7px;
+  color: $font-color;
 }
 
 .accordion {
-  min-width: 560px;
+  margin: auto;
 
   [class*="accordion-button"] {
     margin: auto;
     height: 30px;
     justify-content: center;
+    padding: 1rem;
 
     border: 1px solid transparent;
     color: $font-color;
@@ -44,12 +45,18 @@ $light-font-color: #6c757d;
     box-shadow: none;
 
     &:hover {
-      background-color: hsl(0%, 0%, 95%);
+      background-color: hsl(0deg, 0%, 95%);
     }
 
     &:focus-visible {
       border: 1px solid #2684ff;
     }
+
+    &:not([class*="collapsed"])::after {
+      background-image: url('../../public/drop-chevron.svg');
+      transform: rotate(-180deg) translateY(-1px);
+    }
+
   }
 
   ::after {
@@ -57,10 +64,21 @@ $light-font-color: #6c757d;
     height: .9em;
     background-size: 1em;
     margin: 0 0px 0 5px;
-    color: $light-font-color;
+    color: hsl(0, 0%, 80%);
+    background-image: url('../../public/drop-chevron.svg');
+
   }
 
   [class*="accordion-collapse"] {
-    border-top: $accordion-border;
+    border: $accordion-border;
+    min-width: 550px;
+    background-color: white;
+    position: absolute;
+    z-index: 1;
   }
+}
+
+.accordion-button:not(.collapsed)::after {
+  background-image: url('../../public/drop-chevron.svg');
+  transform: rotate(-180deg);
 }

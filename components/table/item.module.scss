@@ -1,0 +1,91 @@
+.list {
+  margin: 10px auto 0px auto;
+  width: 90%;
+  height: 75vh;
+  padding: 0px 10px;
+
+  border: 1px solid #ddd;
+  border-radius: 5px;
+
+  box-shadow: 0px 0px 10px #ddd;
+
+  overflow: auto;
+}
+
+.listBody {
+  display: inline-block;
+  padding: 0px;
+
+  border: 1px solid #ddd;
+  border-radius: 5px;
+
+  font-size: 15px;
+}
+
+.listItem {
+  display: grid;
+  grid-template-columns: repeat(9, 125px) repeat(2, 175px) repeat(25, 125px);
+
+  padding: 10px 15px;
+  margin-right: 1px;
+  border-bottom: 1px solid #ddd;
+}
+
+.listTotal {
+  display: grid;
+  grid-template-columns: 175px repeat(4, 120px);
+
+  padding: 10px 15px;
+  margin-right: 1px;
+  border-bottom: 1px solid #ddd;
+  font-weight: bold;
+}
+
+.listItem:last-child {
+  border-bottom: none;
+}
+
+.subItem {
+  text-align: center;
+  border-right: .1px solid #ddd;
+  word-wrap: break-word;
+}
+
+.subItemAddress {
+  color: black;
+  text-decoration: none;
+  border-bottom: .5px solid black;
+
+  &:hover {
+    border-bottom: .5px solid blue;
+  }
+}
+
+.subItemTeam:hover {
+  color: #555;
+  text-decoration: none;
+}
+
+@keyframes loading {  
+  to {
+    background-position: 4600px 0px, 0px 0px, 0px 80px, 0px 160px, 0px 240px, 0px 320px;
+  }
+}
+
+.tableLoading {
+  width: 4600px;
+  height: 50vh;
+  margin: 20px; 
+  cursor: progress; 
+  background:
+    linear-gradient(0.25turn, transparent, #fff, transparent),
+    linear-gradient(hsl(0, 0%, 95%), hsl(0, 0%, 95%)),
+    linear-gradient(hsl(0, 0%, 95%), hsl(0, 0%, 95%)),
+    linear-gradient(hsl(0, 0%, 95%), hsl(0, 0%, 95%)),
+    linear-gradient(hsl(0, 0%, 95%), hsl(0, 0%, 95%)),
+    linear-gradient(hsl(0, 0%, 95%), hsl(0, 0%, 95%));
+  background-repeat: no-repeat;
+  background-size: auto 50vh, auto 60px, auto 60px, auto 60px, auto 60px, auto 60px;
+  background-position: -4600px 0px, 0px 0px, 0px 80px, 0px 160px, 0px 240px, 0px 320px; 
+  animation: loading 1.5s infinite;
+}

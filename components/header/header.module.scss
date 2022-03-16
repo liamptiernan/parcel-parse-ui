@@ -1,0 +1,13 @@
+.helpButton {
+  border: .5px solid rgba(var(--bs-dark-rgb),var(--bs-bg-opacity));
+  border-radius: 100%;
+  padding: .2rem .3rem;
+
+  &:hover {
+    border: .5px solid #aaa;
+  }
+}
+
+.helpIcon {
+  padding-bottom: 3px;
+}

@@ -5,117 +5,76 @@ import Stack from 'react-bootstrap/Stack';
 import styles from './csv_download.module.scss';
 
 import FilterGroup from '../filters/filter_group';
+import PageSelect from '../pagination/pagination';
 import SubsetSelect from '../subset_select/subset_select';
 
-const defaultFilter = {
-  operator: null,
-  field: '',
-  logic: 'is',
-  value: ''
-}
-
-const defaultEndpoint = 'http://localhost:5000'
-
-async function fetchCsv() {
-  const res = await fetch(defaultEndpoint);
-  const data = await res.json();
-  return {
-    props: {
-      data
-    }
-  }
-}
-
-function CsvDownload() {
-  const [filters, setFilters] = useState([defaultFilter]);
-  const [subset, setSubset] = useState();
+function CsvDownload(props) {
   const [currentTarget, setCurrentTarget] = useState();
 
   useEffect(() => {
     if (currentTarget) {
       if (currentTarget.newFilter) {
-        const newEle = document.getElementById(`value-input-${filters.length - 1}`);
-        console.log(newEle);
+        const newEle = document.getElementById(`value-input-${props.filters.conditions.length - 1}`);
         newEle.focus();
       } else {
         const { target, currentCursor } = currentTarget;
         if (target.id && target.id.includes('value-input-')) {
-          let ele = document.getElementById(target.id)
-          ele.focus();
-          ele.setSelectionRange(currentCursor,currentCursor);
+          let ele = document.getElementById(target.id);
+          if (ele) {
+            ele.focus();
+            ele.setSelectionRange(currentCursor,currentCursor);
+          }
         }
       }
     }
   })
 
-  const updateSubset = value => {
-    setSubset(value);
-    console.log(subset)
-  }
-
-  const handleSubmit = async () => {
-    const payload = {
-      subset,
-      filters
-    }
-    console.log(await fetchCsv());
-  }
-
   const addFilter = () =>  {
-    const newFilter = {
-      operator: null,
-      field: '',
-      logic: 'is',
-      value: ''
-    }
-
-    setFilters(filters.concat(newFilter));
+    props.addFilter();
     setCurrentTarget({ newFilter: true });
   }
 
   const updateFilter = (target, field, i) => {
-    const newFilters = filters;
-
-    newFilters[i][field] = target.value;
-    setFilters(newFilters);
+    props.updateFilter(target, field, i);
 
     const currentCursor = target.selectionStart;
     setCurrentTarget({ target, currentCursor });
   }
 
   const deleteFilter = (i) => {
-    const newFilters = filters;
-    newFilters.splice(i, 1);
-    setFilters(newFilters);
+    props.deleteFilter(i)
+    setCurrentTarget(null)
   }
-
   return (
     <div className={styles.container}>
-      <Stack gap={2} className="col-md-5 mx-auto">
-        <div className={styles.header}>
-          <h1 className='mx-auto'>Download Spreadsheet</h1>
-          <p className='mx-auto'>Download a spreadsheet of property data</p>
-        </div>
-        <Stack gap={3} className="mx-auto">
-          <SubsetSelect 
-            updateSubset={updateSubset}
-            handleSubmit={handleSubmit}
-          />
-          <Accordion className={styles.accordion}>
-            <Accordion.Item eventKey='0'>
-              <Accordion.Header>Filters</Accordion.Header>
-              <Accordion.Body>
-                <FilterGroup
-                  addFilter={addFilter}
-                  updateFilter={updateFilter}
-                  deleteFilter={deleteFilter}
-                  filters={filters}
-                  filterCount={filters.length}
-                />
-              </Accordion.Body>
-            </Accordion.Item>
-          </Accordion>
-        </Stack>
+      <Stack gap={4} direction='horizontal'>
+        <h1 className={styles.header}>Monroe County, PA</h1>
+        <SubsetSelect 
+          updateParcelList={props.setParcelList}
+          handleSubmit={props.updateData}
+          parcelLists={props.parcelLists}
+          isLoading = {props.dataIsLoading}
+        />
+        <Accordion className={styles.accordion}>
+          <Accordion.Item eventKey='0'>
+            <Accordion.Header>Filters</Accordion.Header>
+            <Accordion.Body>
+              <FilterGroup
+                addFilter={addFilter}
+                updateFilter={updateFilter}
+                deleteFilter={deleteFilter}
+                filters={props.filters}
+                conjunction = {props.conjunction}
+                updateConjunction = {props.updateConjunction}
+              />
+            </Accordion.Body>
+          </Accordion.Item>
+        </Accordion>
+      {props.pageCount > 1 && <PageSelect
+        currentPage = {props.currentPage}
+        setCurrentPage = {props.setCurrentPage}
+        pageCount = {props.pageCount}
+      />}
       </Stack>
     </div>
   )

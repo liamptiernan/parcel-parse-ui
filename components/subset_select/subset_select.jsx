@@ -6,28 +6,51 @@ import Select from 'react-select';
 import Button from 'react-bootstrap/Button';
 import Stack from 'react-bootstrap/Stack';
 
+
+function buildOptions(parcelLists) {
+  const options = [];
+
+  for (const list of parcelLists) {
+    const option = {
+      value: list.title,
+      label: list.title
+    }
+
+    options.push(option);
+  }
+
+  return options;
+}
+
 function SubsetSelect(props) {
-  const options = [
-    { value: 'All Properties', label: 'All Properties' },
-    { value: 'January Sheriff Sale', label: 'January Sheriff Sale Testing' },
-  ];
+  const options = buildOptions(props.parcelLists);
+
+  let buttonSign = <ReactSVG 
+    className={styles.updateSvg}
+    src='arrow-clockwise.svg'
+  />
+
+  if (props.isLoading) {
+    buttonSign = <ReactSVG 
+    className={styles.spinnerConstant}
+    src='arrow-clockwise.svg'
+  />
+  }
 
   return (
-    <Stack direction="horizontal" gap={4} className='mb-2 mx-auto'>
+    <Stack direction="horizontal" gap={1} className='m-auto'>
       <Select
         className={styles.select}
         classNamePrefix='subset'
         options={options}
-        placeholder='Select Subset of Properties'
-        onChange={e => props.updateSubset(e.value)}
+        placeholder='Select Subset of Parcels'
+        onChange={e => props.updateParcelList(e.value)}
       />
       <Button
         className={styles.button}
         onClick={props.handleSubmit}
       >
-        <ReactSVG 
-          src='download.svg'
-        />
+        {buttonSign}
       </Button>
     </Stack>
   )

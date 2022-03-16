@@ -82,7 +82,7 @@ $standard-border: 1px solid hsl(0, 0%, 80%);
   }
 
   [class*="__option--is-focused"] {
-    background-color: hsl(0%, 0%, 90%);
+    background-color: hsl(0deg, 0%, 90%);
   }
 }
 
@@ -130,7 +130,7 @@ $standard-border: 1px solid hsl(0, 0%, 80%);
   border: $standard-border;
 
   &:hover {
-    background-color: hsl(0%, 0%, 95%);
+    background-color: hsl(0deg, 0%, 95%);
     border: $standard-border;
   }
 }

@@ -9,7 +9,7 @@ import { ReactSVG } from 'react-svg';
 import Stack from 'react-bootstrap/Stack';
 
 function FilterGroup(props) {
-  const [changeCount, setChangeCount] = useState(props.filters.length);
+  const [changeCount, setChangeCount] = useState(props.filters.conditions.length);
 
   const deleteFilter = i => {
     props.deleteFilter(i);
@@ -21,15 +21,22 @@ function FilterGroup(props) {
     setChangeCount(changeCount + 1);
   }
 
+  const updateConjunction = (e, field, i) => {
+    props.updateConjunction(e, field, i);
+    setChangeCount(changeCount + 1);
+  }
+
   return (
     <div className={styles.filterGroup}>
-      {props.filters.map((filter, i) => {
+      {props.filters.conditions.map((filter, i) => {
         return <FilterCondition
           key={uuid()}
           id={i}
           updateFilter={updateFilter}
           deleteFilter={deleteFilter}
           values={filter}
+          conjunction = {props.conjunction}
+          updateConjunction = {updateConjunction}
         />
       })}
       <Button 
