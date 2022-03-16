@@ -5,6 +5,7 @@ import Stack from 'react-bootstrap/Stack';
 import styles from './csv_download.module.scss';
 
 import FilterGroup from '../filters/filter_group';
+import PageSelect from '../pagination/pagination';
 import SubsetSelect from '../subset_select/subset_select';
 
 function CsvDownload(props) {
@@ -69,6 +70,11 @@ function CsvDownload(props) {
             </Accordion.Body>
           </Accordion.Item>
         </Accordion>
+      {props.pageCount > 1 && <PageSelect
+        currentPage = {props.currentPage}
+        setCurrentPage = {props.setCurrentPage}
+        pageCount = {props.pageCount}
+      />}
       </Stack>
     </div>
   )

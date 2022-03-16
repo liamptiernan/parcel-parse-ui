@@ -21,6 +21,13 @@ $light-font-color: #6c757d;
 .header {
   font-size: 1.4em;
   margin: auto;
+  white-space: nowrap;
+}
+
+.pageLabel {
+  margin: 0px;
+  padding-right: 7px;
+  color: $font-color;
 }
 
 .accordion {

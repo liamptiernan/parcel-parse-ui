@@ -51,25 +51,43 @@ function Home(props) {
   const [tableIsLoading, setTableIsLoading] = useState(false);
   const [isFirstLoad, setIsFirstLoad] = useState(true);
   const [modalShow, setModalShow] = useState(false);
-
-  const handleModalClose = () => setModalShow(false);
-  const handleModalShow = () => setModalShow(true);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const updateTable = () => {
-    const filteredData = filterData(data, filters);
-    setFilteredData(filteredData);
+    setCurrentPage(1)
+    const chunk = 100;
+    let index = 0;
+    let finalData = [];
+
+    const doChunk = () => {
+      const currentData = data.slice(index, index + chunk);
+      const currentFiltered = filterData(currentData, filters);
+
+      finalData = finalData.concat(currentFiltered);
+      
+      index += chunk;
+      
+      if (index < data.length) {
+        setTimeout(doChunk, 1)
+      } else {
+        setTableIsLoading(false);
+        setFilteredData(finalData);
+      }
+    }
+    doChunk();
   }
 
   useEffect(() => {
     clearTimeout(timer);
-    timer = setTimeout(updateTable, 500);
+    // setTableIsLoading(true)
+    timer = setTimeout(updateTable, 1);
     setTimer(timer);
   }, [filters]);
 
   useEffect(async () => {
     if (isFirstLoad) {
       setIsFirstLoad(false);
-      return await fetch(`https://parcel-parse.herokuapp.com/health`, {headers: {Authorization: 'ZunderBunder2558'}});
+      return fetch(`https://parcel-parse.herokuapp.com/health`, {headers: {Authorization: 'ZunderBunder2558'}});
     }
   }, [isFirstLoad])
 
@@ -127,6 +145,21 @@ function Home(props) {
     if (!parcelList) { return; }
     setDataIsLoading(true);
     setTableIsLoading(true);
+    setCurrentPage(1);
+
+    const blankFilter = {
+      conditions: [
+        {
+          field: null,
+          logic: null,
+          value: ''
+        }
+      ],
+      conjunction: 'and'
+    }
+    
+    setFilters(blankFilter);
+
     let offset = 0;
     const completeRes = [];
     while (true) {
@@ -144,9 +177,21 @@ function Home(props) {
 
     setData(completeRes);
     setFilteredData(completeRes);
+    setFilters(defaultFilter);
     setDataIsLoading(false);
     setTableIsLoading(false);
   }
+
+  const handleModalClose = () => setModalShow(false);
+  const handleModalShow = () => setModalShow(true);
+
+  const displayedData = () => {
+    const start = (currentPage - 1) * 200
+    const end = start + 200;
+    return filteredData.slice(start, end);
+  }
+
+  const pageCount = Math.floor(filteredData.length / 200) + 1;
 
   return (
     <div className={styles.container}>
@@ -170,10 +215,13 @@ function Home(props) {
           updateConjunction = {updateConjunction}
           conjunction = {filters.conjunction}
           dataIsLoading = {dataIsLoading}
+          pageCount = {pageCount}
+          currentPage = {currentPage}
+          setCurrentPage = {setCurrentPage}
         />
         <Table
           filters = {filters}
-          lines = {filteredData}
+          lines = {displayedData()}
           tableIsLoading = {tableIsLoading}
         />
       </main>

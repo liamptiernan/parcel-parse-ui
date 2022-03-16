@@ -1,5 +1,5 @@
 .list {
-  margin: 10px auto 50px auto;
+  margin: 10px auto 0px auto;
   width: 90%;
   height: 75vh;
   padding: 0px 10px;
@@ -54,11 +54,16 @@
 .subItemAddress {
   color: black;
   text-decoration: none;
+  border-bottom: .5px solid black;
+
+  &:hover {
+    border-bottom: .5px solid blue;
+  }
 }
 
 .subItemTeam:hover {
   color: #555;
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 @keyframes loading {  
