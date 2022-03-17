@@ -70,7 +70,6 @@ function Home(props) {
       if (index < data.length) {
         setTimeout(doChunk, 1)
       } else {
-        setTableIsLoading(false);
         setFilteredData(finalData);
       }
     }
@@ -79,8 +78,7 @@ function Home(props) {
 
   useEffect(() => {
     clearTimeout(timer);
-    // setTableIsLoading(true)
-    timer = setTimeout(updateTable, 1);
+    timer = setTimeout(updateTable, 50);
     setTimer(timer);
   }, [filters]);
 
@@ -172,12 +170,10 @@ function Home(props) {
       completeRes = completeRes.concat(json)
       offset = offset + 500;
       setFilteredData(completeRes);
-      setTableIsLoading(false);
     }
 
     setData(completeRes);
     setFilteredData(completeRes);
-    setFilters(defaultFilter);
     setDataIsLoading(false);
     setTableIsLoading(false);
   }
