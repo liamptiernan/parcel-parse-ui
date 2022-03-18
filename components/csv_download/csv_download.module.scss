@@ -9,7 +9,6 @@ $light-font-color: #6c757d;
   padding: 20px;
   width: 90%;
   min-width: 300px;
-  overflow: auto;
 
   border: 1px solid #ddd;
   border-radius: 5px;
@@ -21,6 +20,7 @@ $light-font-color: #6c757d;
 
   @media screen and (max-width:650px) {
     padding: 15px;
+    overflow: auto;
   }
 }
 
