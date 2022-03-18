@@ -190,37 +190,42 @@ function Home(props) {
   const pageCount = Math.floor(filteredData.length / 200) + 1;
 
   return (
-    <div className={styles.container}>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-      <Header
-        handleModalShow = {handleModalShow}
-      />
-      <main>
-        <AboutModal
-          handleModalClose = {handleModalClose}
-          modalShow = {modalShow}
+    <div>
+      <head>
+        <title>ParcelParse</title>
+      </head>
+      <div className={styles.container}>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <Header
+          handleModalShow = {handleModalShow}
         />
-        <CsvDownload 
-          parcelLists={props.parcelLists}
-          filters={filters}
-          updateData={updateData}
-          setParcelList={setParcelList}
-          addFilter={addFilter}
-          updateFilter={updateFilter}
-          deleteFilter={deleteFilter}
-          updateConjunction = {updateConjunction}
-          conjunction = {filters.conjunction}
-          dataIsLoading = {dataIsLoading}
-          pageCount = {pageCount}
-          currentPage = {currentPage}
-          setCurrentPage = {setCurrentPage}
-        />
-        <Table
-          filters = {filters}
-          lines = {displayedData()}
-          tableIsLoading = {tableIsLoading}
-        />
-      </main>
+        <main>
+          <AboutModal
+            handleModalClose = {handleModalClose}
+            modalShow = {modalShow}
+          />
+          <CsvDownload 
+            parcelLists={props.parcelLists}
+            filters={filters}
+            updateData={updateData}
+            setParcelList={setParcelList}
+            addFilter={addFilter}
+            updateFilter={updateFilter}
+            deleteFilter={deleteFilter}
+            updateConjunction = {updateConjunction}
+            conjunction = {filters.conjunction}
+            dataIsLoading = {dataIsLoading}
+            pageCount = {pageCount}
+            currentPage = {currentPage}
+            setCurrentPage = {setCurrentPage}
+          />
+          <Table
+            filters = {filters}
+            lines = {displayedData()}
+            tableIsLoading = {tableIsLoading}
+          />
+        </main>
+      </div>
     </div>
   )
 }
