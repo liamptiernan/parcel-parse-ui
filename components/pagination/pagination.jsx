@@ -122,7 +122,7 @@ function PageSelect(props) {
   let pages = buildPages();  
 
   return (
-    <Stack direction='horizontal' gap={1}>
+    <Stack direction='horizontal' gap={1} className={styles.container}>
       <p className={styles.pageLabel}>Pages</p>
       <Pagination className='m-0' size='sm'>{pages}</Pagination>
     </Stack>

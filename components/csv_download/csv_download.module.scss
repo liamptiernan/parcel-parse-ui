@@ -6,8 +6,10 @@ $light-font-color: #6c757d;
 .container {
   margin: auto;
   margin-top: 20px;
-  width: 90%;
   padding: 20px;
+  width: 90%;
+  min-width: 300px;
+  overflow: auto;
 
   border: 1px solid #ddd;
   border-radius: 5px;
@@ -16,6 +18,21 @@ $light-font-color: #6c757d;
 
   display: flex;
   flex-wrap: wrap;
+
+  @media screen and (max-width:650px) {
+    padding: 15px;
+  }
+}
+
+.inputStack {
+  @media screen and (max-width:650px) {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    align-self: stretch;
+    grid-gap: 1rem!important;
+    gap: 1rem!important;
+  }
 }
 
 .header {
@@ -59,6 +76,12 @@ $light-font-color: #6c757d;
 
   }
 
+  [class*="accordion-body"] {
+    @media screen and (max-width:650px) {
+      width: 100%;
+    }
+  }
+
   ::after {
     width: 1em;
     height: .9em;
@@ -75,6 +98,19 @@ $light-font-color: #6c757d;
     background-color: white;
     position: absolute;
     z-index: 1;
+    overflow: auto;
+
+    @media screen and (max-width:1100px) {
+      left: 14%;
+    }
+
+    @media screen and (max-width:650px) {
+      min-width: 280px;
+      width: 90%;
+      left: 10px;
+
+      padding-right: 5px;
+    }
   }
 }
 

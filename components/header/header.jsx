@@ -1,5 +1,4 @@
 import Button from 'react-bootstrap/Button'
-import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import { ReactSVG } from 'react-svg';
@@ -9,8 +8,7 @@ import styles from './header.module.scss'
 function Header(props) {
   return (
     <header>
-      <Navbar bg="dark" variant="dark" expand="lg">
-        <Container>
+      <Navbar bg="dark" variant="dark" className={styles.navbar}>
           <Navbar.Brand href="/">ParcelParse</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
@@ -27,7 +25,6 @@ function Header(props) {
               </Button>
             </Nav>
           </Navbar.Collapse>
-        </Container>
       </Navbar>
     </header>
   )

@@ -1,6 +1,7 @@
 .list {
   margin: 10px auto 0px auto;
   width: 90%;
+  min-width: 300px;
   height: 75vh;
   padding: 0px 10px;
 
@@ -10,6 +11,11 @@
   box-shadow: 0px 0px 10px #ddd;
 
   overflow: auto;
+
+  @media screen and (max-width:650px) {
+    height: 70vh;
+    width: 95%;
+  }
 }
 
 .listBody {

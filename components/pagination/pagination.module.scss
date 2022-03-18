@@ -1,3 +1,9 @@
+.container {
+  @media screen and (max-width:650px) {
+    justify-content: center;
+  }
+}
+
 .pageLabel {
   color: gray;
   margin: 0;
