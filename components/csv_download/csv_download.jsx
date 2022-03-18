@@ -47,7 +47,7 @@ function CsvDownload(props) {
   }
   return (
     <div className={styles.container}>
-      <Stack gap={4} direction='horizontal'>
+      <Stack gap={4} direction='horizontal' className={styles.inputStack}>
         <h1 className={styles.header}>Monroe County, PA</h1>
         <SubsetSelect 
           updateParcelList={props.setParcelList}
